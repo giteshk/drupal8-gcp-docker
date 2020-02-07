@@ -1,17 +1,17 @@
-#Drupal 8 docker image based on Google PHP base image 
+# Drupal 8 docker image based on Google PHP base image 
 
-This project uses the [PHP base image](gcr.io/google-appengine/php:latest) to build a Drupal 8 container.
+This project uses the [PHP base image](https://gcr.io/google-appengine/php:latest) to build a Drupal 8 container.
  
 This project can also be used as a reference on how to containerize your own Drupal 8 sites, 
-documented [here](#Want-to-build-your-own-docker-image).
+documented [here](#build-your-own-docker-image).
 
 If you want to use this image you can download it from docker hub
 
     docker pull giteshk/drupal8-gcp-docker
 
-If you would like to build your own container follow the instructions [below](#Want-to-build-your-own-docker-image)
+## Running this setup locally
+<a id="run-this-setup"></a>
 
-##Running this setup locally
 1. Create a volume for the drupal files
     ```
         docker volume create dev-public-files
@@ -39,7 +39,7 @@ If you would like to build your own container follow the instructions [below](#W
     ```
 4. Open a browser and go to [http://localhost:3000](http://localhost:3000)
 
-##Remove your docker containers
+## Remove your docker containers
 
     docker stop dev-drupal
     docker container rm dev-drupal 
@@ -48,7 +48,8 @@ If you would like to build your own container follow the instructions [below](#W
     docker volume rm dev-public-files 
     docker volume rm dev-private-files
 
-##Want to build your own docker image
+## Want to build your own docker image
+<a id="build-your-own-docker-image"></a>
 If you want to build your own Drupal 8 project copy the files listed below to your project :
 - Dockerfile
 - nginx-http.conf
@@ -75,25 +76,25 @@ If you want to build your own Drupal 8 project copy the files listed below to yo
 - cloudbuild.xml - Copy this file if you plan to use [Cloud Build](https://cloud.google.com/cloud-build/docs/)
 
 
-##Building this docker image locally
+## Building this docker image locally
 To build the docker image on your instance run the following:
     
     docker build -t my-drupal8 .
 
-Follow the instructions above to run this container
+Follow the instructions [above](#run-this-setup) to run this container
 
-##Implementation details
+## Implementation details
 
-###Dockerfile
+### Dockerfile
     We based this image on the PHP Google App Engine image. 
     We did to leverage all security patches that App Engine image would get from Google team.
-    ***As of the writing of this project App Engine image only supports php 7.1 and 7.2***
-###nginx-http.conf
+    *** As of the writing of this project App Engine image only supports php 7.1 and 7.2 ***
+### nginx-http.conf
     The default nginx configuration is not Drupal friendly so we took the nginx Drupal
     recipe and modified it to work.
-###php.ini
+### php.ini
     The default 128M was not sufficient for Drupal so we bumped the php memory limit to 512M
-###settings.php
+### settings.php
     The Database configuration has been parameterized. Define the following environment variables
         - MYSQL_DB_NAME
         - MYSQL_DB_USER
@@ -102,12 +103,12 @@ Follow the instructions above to run this container
         - MYSQL_DB_PORT
     The Drupal Hash salt is also passed as an environment variable.
         - DRUPAL_HASH_SALT
-###composer.json 
+### composer.json 
     Make sure you have the above mentioned extentions in the require section of your composer.json
     When the docker image is build it uses this information to enable php extensions
-###cloudbuild.xml
+### cloudbuild.xml
     Use this to build your docker images using Cloud build and publish to Google container registry.
 
-#Disclaimer
+# Disclaimer
     This is not an official Google Product
 
