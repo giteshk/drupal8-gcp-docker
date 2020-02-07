@@ -29,13 +29,17 @@ If you want to use this image you can download it from docker hub
             -e MYSQL_PASSWORD=passw0rd \
             -p3306:3306 mariadb
     ```    
-3. Update the MYSQL_DB_HOST with the IP Address the environment.txt file. Now run the image you just built
+3. Update the **MYSQL_DB_HOST** with the IP Address the environment.txt file.
+
+4. Run the Drupal docker image
     ```
-    docker run -v dev-public-files:/drupal-files/public \
-        -v dev-private-files:/drupal-files/private \
-        --name=dev-drupal  \
-        --env-file=./environment.txt \
-        -p3000:80 giteshk/drupal8-gcp-docker:latest 
+        docker pull giteshk/drupal8-gcp-docker
+
+        docker run -v dev-public-files:/drupal-files/public \
+            -v dev-private-files:/drupal-files/private \
+            --name=dev-drupal  \
+            --env-file=./environment.txt \
+            -p3000:80 giteshk/drupal8-gcp-docker:latest 
     ```
 4. Open a browser and go to [http://localhost:3000](http://localhost:3000)
 
