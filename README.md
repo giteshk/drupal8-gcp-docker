@@ -87,8 +87,8 @@ Follow the instructions [above](#run-this-setup) to run this container
 
 ### Dockerfile
     We based this image on the PHP Google App Engine image. 
-    We did to leverage all security patches that App Engine image would get from Google team.
-    *** As of the writing of this project App Engine image only supports php 7.1 and 7.2 ***
+    We did to leverage all security patches that base image would get from Google team.
+    *** As of the writing of this project the PHP base image only supports php 7.1 and 7.2 ***
 ### nginx-http.conf
     The default nginx configuration is not Drupal friendly so we took the nginx Drupal
     recipe and modified it to work.
