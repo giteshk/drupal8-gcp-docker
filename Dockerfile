@@ -1,5 +1,7 @@
 FROM gcr.io/google-appengine/php:latest
 
+RUN apt-get install unzip mysql-client -y
+
 # set the document root to web/ folder
 ENV DOCUMENT_ROOT /app/web
 
@@ -40,3 +42,5 @@ RUN chown -R www-data.www-data /app/web/sites/default/settings.php \
 
 # symlink to the public files directory
 RUN ln -s /drupal-files/public web/sites/default/files
+
+RUN alias drush="/app/vendor/bin/drush --root=/app";
