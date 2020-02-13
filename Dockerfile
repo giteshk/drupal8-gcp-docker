@@ -1,6 +1,7 @@
 FROM gcr.io/google-appengine/php:latest
 
-RUN apt-get install unzip mysql-client -y
+RUN apt-get update -y
+RUN apt-get install zip mysql-client -y
 
 # set the document root to web/ folder
 ENV DOCUMENT_ROOT /app/web
