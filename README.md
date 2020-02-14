@@ -12,6 +12,8 @@ If you want to use this image you can download it from docker hub
 ## Running this setup locally
 <a id="run-this-setup"></a>
 
+> **Modify the environment.txt file to change default values**
+
 1. Create a volume for the drupal files
     ```
         docker volume create dev-public-files
@@ -23,13 +25,10 @@ If you want to use this image you can download it from docker hub
         docker pull mariadb
     
         docker run --name=dev-db \
-            -e MYSQL_ROOT_PASSWORD=rootpassword \
-            -e MYSQL_DATABASE=drupal_db \
-            -e MYSQL_USER=dbuser \
-            -e MYSQL_PASSWORD=passw0rd \
+            --env-file=./environment.txt \
             -p3306:3306 mariadb
     ```    
-3. Update the **MYSQL_DB_HOST** with the IP Address the environment.txt file.
+3. Update the **MYSQL_HOST** in environment.txt with your local machine IP Address.
 
 4. Run the Drupal docker image
     ```
