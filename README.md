@@ -40,7 +40,7 @@ If you want to use this image you can download it from docker hub
             --env-file=./environment.txt \
             -p3000:80 giteshk/drupal8-gcp-docker:latest 
     ```
-4. Open a browser and go to [http://localhost:3000](http://localhost:3000)
+5. Open a browser and go to [http://localhost:3000](http://localhost:3000)
 
 ## Remove your docker containers
 
