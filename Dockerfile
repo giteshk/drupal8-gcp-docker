@@ -7,11 +7,11 @@ RUN apt-get install zip mysql-client -y
 ENV DOCUMENT_ROOT /app/web
 
 # Database environment variables
-ENV MYSQL_DB_NAME ""
-ENV MYSQL_DB_USER ""
-ENV MYSQL_DB_PASSWORD ""
-ENV MYSQL_DB_HOST "127.0.0.1"
-ENV MYSQL_DB_PORT "3306"
+ENV MYSQL_DATABASE ""
+ENV MYSQL_USER ""
+ENV MYSQL_PASSWORD ""
+ENV MYSQL_HOST "127.0.0.1"
+ENV MYSQL_PORT "3306"
 
 # Drupal hash salt
 ENV DRUPAL_HASH_SALT ""

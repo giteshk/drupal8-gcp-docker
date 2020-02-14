@@ -90,11 +90,11 @@
  */
 $databases = [];
 $databases['default']['default'] = [
-  'database' => getenv("MYSQL_DB_NAME")??'',
-  'username' => getenv("MYSQL_DB_USER")??'',
-  'password' => getenv("MYSQL_DB_PASSWORD")??'',
-  'host' => getenv("MYSQL_DB_HOST")??'',
-  'port' => getenv("MYSQL_DB_PORT")??'',
+  'database' => getenv("MYSQL_DATABASE")??'',
+  'username' => getenv("MYSQL_USER")??'',
+  'password' => getenv("MYSQL_PASSWORD")??'',
+  'host' => getenv("MYSQL_HOST")??'',
+  'port' => getenv("MYSQL_PORT")??'',
   'driver' => 'mysql',
   'prefix' => '',
   'collation' => 'utf8mb4_general_ci'
@@ -767,4 +767,8 @@ if (!file_exists($settings['config_sync_directory'])) {
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = getenv("DRUPAL_HASH_SALT");
+$hash_salt_path = $settings['file_private_path'] . "/salt.txt";
+if(!file_exists($hash_salt_path)) {
+    file_put_contents($hash_salt_path, Drupal\Component\Utility\Crypt::randomBytesBase64(55));
+}
+$settings['hash_salt'] = file_get_contents($hash_salt_path);
