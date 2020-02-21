@@ -99,11 +99,11 @@ Follow the instructions [above](#run-this-setup) to run this container
     The default 128M was not sufficient for Drupal so we bumped the php memory limit to 512M
 ### settings.php
     The Database configuration has been parameterized. Define the following environment variables
-        - MYSQL_DB_NAME
-        - MYSQL_DB_USER
-        - MYSQL_DB_PASSWORD
-        - MYSQL_DB_HOST
-        - MYSQL_DB_PORT
+        - MYSQL_DATABASE
+        - MYSQL_USER
+        - MYSQL_PASSWORD
+        - MYSQL_HOST
+        - MYSQL_PORT
     The Drupal Hash salt is also passed as an environment variable.
         - DRUPAL_HASH_SALT
 ### composer.json 
