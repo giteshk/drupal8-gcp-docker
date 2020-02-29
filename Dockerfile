@@ -19,14 +19,18 @@ ENV DRUPAL_HASH_SALT ""
 #create the file system for public and private files
 RUN mkdir -p /drupal-files/public
 RUN mkdir -p /drupal-files/private
+RUN mkdir -p /drupal-files/backups
 RUN chown -R www-data.www-data /drupal-files/private \
     && chmod -R 775 /drupal-files/private
 RUN chown -R www-data.www-data /drupal-files/public \
     && chmod -R 775 /drupal-files/public
+RUN chown -R www-data.www-data /drupal-files/backups \
+    && chmod -R 775 /drupal-files/backups
 
 # Volumes for public and private files
 VOLUME /drupal-files/public
 VOLUME /drupal-files/private
+VOLUME /drupal-files/backups
 
 WORKDIR /app
 
@@ -43,5 +47,3 @@ RUN chown -R www-data.www-data /app/web/sites/default/settings.php \
 
 # symlink to the public files directory
 RUN ln -s /drupal-files/public web/sites/default/files
-
-RUN alias drush="/app/vendor/bin/drush --root=/app";

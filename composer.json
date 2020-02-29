@@ -46,11 +46,6 @@
     "config": {
         "sort-packages": true
     },
-    "scripts": {
-        "post-deploy-cmd": [
-            "./vendor/bin/drush updb -y || true"
-        ]
-    },
     "extra": {
         "drupal-scaffold": {
             "locations": {
