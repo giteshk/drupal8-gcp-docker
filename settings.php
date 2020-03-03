@@ -90,15 +90,17 @@
  */
 $databases = [];
 $databases['default']['default'] = [
-  'database' => getenv("MYSQL_DATABASE")??'',
-  'username' => getenv("MYSQL_USER")??'',
-  'password' => getenv("MYSQL_PASSWORD")??'',
-  'host' => getenv("MYSQL_HOST")??'',
-  'port' => getenv("MYSQL_PORT")??'',
-  'driver' => 'mysql',
+  'database' => getenv("DB_NAME")??'',
+  'username' => getenv("DB_USER")??'',
+  'password' => getenv("DB_PASSWORD")??'',
+  'host' => getenv("DB_HOST")??'127.0.0.1',
+  'port' => getenv("DB_PORT")??'3306',
+  'driver' => getenv("DB_DRIVER")??'mysql',
   'prefix' => '',
-  'collation' => 'utf8mb4_general_ci'
 ];
+if($databases['default']['default']['driver'] == 'mysql'){
+    $databases['default']['default']['collation'] = 'utf8mb4_general_ci';
+}
 
 /**
  * Customizing database settings.
@@ -488,7 +490,7 @@ $settings['file_public_path'] = 'sites/default/files';
  * See https://www.drupal.org/documentation/modules/file for more information
  * about securing private files.
  */
-$settings['file_private_path'] = "/drupal-files/private";
+$settings['file_private_path'] = "sites/default/private";
 
 /**
  * Temporary file path:
@@ -501,7 +503,7 @@ $settings['file_private_path'] = "/drupal-files/private";
  *
  * @see \Drupal\Component\FileSystem\FileSystem::getOsTemporaryDirectory()
  */
-$settings['file_temp_path'] = '/tmp';
+$settings['file_temp_path'] = '/drupal-files/tmp';
 
 /**
  * Session write interval:

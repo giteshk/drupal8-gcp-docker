@@ -8,11 +8,12 @@ ENV DOCUMENT_ROOT /app/web
 ENV FRONT_CONTROLLER_FILE index.php
 
 # Database environment variables
-ENV MYSQL_DATABASE ""
-ENV MYSQL_USER ""
-ENV MYSQL_PASSWORD ""
-ENV MYSQL_HOST "127.0.0.1"
-ENV MYSQL_PORT "3306"
+ENV DB_NAME ""
+ENV DB_USER ""
+ENV DB_PASSWORD ""
+ENV DB_HOST "127.0.0.1"
+ENV DB_PORT "3306"
+ENV DB_DRIVER "mysql"
 
 # Drupal hash salt
 ENV DRUPAL_HASH_SALT ""
@@ -21,12 +22,16 @@ ENV DRUPAL_HASH_SALT ""
 RUN mkdir -p /drupal-files/public
 RUN mkdir -p /drupal-files/private
 RUN mkdir -p /drupal-files/backups
+RUN mkdir -p /drupal-files/tmp
+
 RUN chown -R www-data.www-data /drupal-files/private \
     && chmod -R 775 /drupal-files/private
 RUN chown -R www-data.www-data /drupal-files/public \
     && chmod -R 775 /drupal-files/public
 RUN chown -R www-data.www-data /drupal-files/backups \
     && chmod -R 775 /drupal-files/backups
+RUN chown -R www-data.www-data /drupal-files/tmp \
+    && chmod -R 775 /drupal-files/tmp
 
 # Volumes for public and private files
 VOLUME /drupal-files/public
@@ -48,5 +53,6 @@ RUN mv -f settings.php web/sites/default/settings.php
 RUN chown -R www-data.www-data /app/web/sites/default/settings.php \
     && chmod -R 775 /app/web/sites/default/settings.php
 
-# symlink to the public files directory
+# symlink to the public/private files directory
 RUN ln -s /drupal-files/public web/sites/default/files
+RUN ln -s /drupal-files/private web/sites/default/private

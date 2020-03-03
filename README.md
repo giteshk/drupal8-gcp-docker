@@ -28,7 +28,7 @@ If you want to use this image you can download it from docker hub
             --env-file=./environment.txt \
             -p3306:3306 mariadb
     ```    
-3. Update the **MYSQL_HOST** in environment.txt with your local machine IP Address.
+3. Update the **DB_HOST** in environment.txt with your local machine IP Address.
 
 4. Run the Drupal docker image
     ```
@@ -99,11 +99,11 @@ Follow the instructions [above](#run-this-setup) to run this container
     The default 128M was not sufficient for Drupal so we bumped the php memory limit to 512M
 ### settings.php
     The Database configuration has been parameterized. Define the following environment variables
-        - MYSQL_DATABASE
-        - MYSQL_USER
-        - MYSQL_PASSWORD
-        - MYSQL_HOST
-        - MYSQL_PORT
+        - DB_NAME
+        - DB_USER
+        - DB_PASSWORD
+        - DB_HOST
+        - DB_PORT
     The Drupal Hash salt is also passed as an environment variable.
         - DRUPAL_HASH_SALT
 ### composer.json 
