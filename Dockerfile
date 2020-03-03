@@ -5,6 +5,7 @@ RUN apt-get install zip mysql-client -y
 
 # set the document root to web/ folder
 ENV DOCUMENT_ROOT /app/web
+ENV FRONT_CONTROLLER_FILE index.php
 
 # Database environment variables
 ENV MYSQL_DATABASE ""
@@ -35,6 +36,8 @@ VOLUME /drupal-files/backups
 WORKDIR /app
 
 COPY . .
+
+RUN mv drush.sh /usr/local/bin/drush && chmod 775 /usr/local/bin/drush
 
 RUN composer install
 
