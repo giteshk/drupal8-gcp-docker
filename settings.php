@@ -96,7 +96,7 @@ $databases['default']['default'] = [
   'host' => getenv("DB_HOST")??'127.0.0.1',
   'port' => getenv("DB_PORT")??'3306',
   'driver' => getenv("DB_DRIVER")??'mysql',
-  'prefix' => '',
+  'prefix' => getenv("DB_PREFIX")??'',
 ];
 if($databases['default']['default']['driver'] == 'mysql'){
     $databases['default']['default']['collation'] = 'utf8mb4_general_ci';
