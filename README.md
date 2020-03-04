@@ -11,51 +11,31 @@ If you want to use this image you can download it from docker hub
 
 ## Running this setup locally
 <a id="run-this-setup"></a>
-
-> **Modify the environment.txt file to change default values**
-
-1. Create a volume for the drupal files
+1. Install [docker-compose](https://docs.docker.com/compose/install/)
+2. To build this image locally run
     ```
-        docker volume create dev-public-files
-        docker volume create dev-private-files
+    docker-compose build
+    ``` 
+3. To run this setup locally
     ```
-2.  Create a mariadb database.
-    You can setup the mariadb docker container as shown below:
+    docker-compose up
     ```
-        docker pull mariadb
-    
-        docker run --name=dev-db \
-            --env-file=./environment.txt \
-            -p3306:3306 mariadb
-    ```    
-3. Update the **DB_HOST** in environment.txt with your local machine IP Address.
+   This will create the required volumes and setup a mariadb server
+4. Open a browser and go to [http://localhost:5000](http://localhost:5000)
 
-4. Run the Drupal docker image
-    ```
-        docker pull giteshk/drupal8-gcp-docker
+## Remove your docker containers and volumes
 
-        docker run -v dev-public-files:/drupal-files/public \
-            -v dev-private-files:/drupal-files/private \
-            --name=dev-drupal  \
-            --env-file=./environment.txt \
-            -p3000:80 giteshk/drupal8-gcp-docker:latest 
-    ```
-5. Open a browser and go to [http://localhost:3000](http://localhost:3000)
-
-## Remove your docker containers
-
-    docker stop dev-drupal
-    docker container rm dev-drupal 
-    docker stop dev-db
-    docker container rm dev-db 
-    docker volume rm dev-public-files 
-    docker volume rm dev-private-files
+    docker-compose down
+    docker volume rm drupal8-gcp-docker_drupal-db-volume
+    docker volume rm drupal8-gcp-docker_drupal-public-files
+    docker volume rm drupal8-gcp-docker_drupal-private-files
+    docker volume rm drupal8-gcp-docker_drupal-backups
 
 ## Want to build your own docker image
 <a id="build-your-own-docker-image"></a>
 If you want to build your own Drupal 8 project copy the files listed below to your project :
 - Dockerfile
-- nginx-http.conf
+- nginx-app.conf
 - php.ini
 - settings.php
 - Make sure that you have the following dependencies in your composer.json
@@ -92,9 +72,8 @@ Follow the instructions [above](#run-this-setup) to run this container
     We based this image on the PHP Google App Engine image. 
     We did to leverage all security patches that base image would get from Google team.
     *** As of the writing of this project the PHP base image only supports php 7.1 and 7.2 ***
-### nginx-http.conf
-    The default nginx configuration is not Drupal friendly so we took the nginx Drupal
-    recipe and modified it to work.
+### nginx-app.conf
+    This is a modified version of the nginx drupal 8 receipe
 ### php.ini
     The default 128M was not sufficient for Drupal so we bumped the php memory limit to 512M
 ### settings.php
@@ -104,6 +83,7 @@ Follow the instructions [above](#run-this-setup) to run this container
         - DB_PASSWORD
         - DB_HOST
         - DB_PORT
+        - DB_PREFIX
     The Drupal Hash salt is also passed as an environment variable.
         - DRUPAL_HASH_SALT
 ### composer.json 

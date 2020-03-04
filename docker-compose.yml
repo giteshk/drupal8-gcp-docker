@@ -1,13 +1,13 @@
 version: '3'
 services:
   web:
-    image: giteshk/drupal8-gcp-docker:latest
+    build: .
     ports:
       - "5000:8080"
     volumes:
-      - devportal-public-files:/drupal-files/public
-      - devportal-private-files:/drupal-files/private
-      - devportal-backups:/drupal-files/backups
+      - drupal-public-files:/drupal-files/public
+      - drupal-private-files:/drupal-files/private
+      - drupal-backups:/drupal-files/backups
     environment:
       - DB_NAME=drupal_db
       - DB_USER=dbuser
@@ -20,7 +20,7 @@ services:
   drupal-database:
     image: mariadb
     volumes:
-      - devportal-db-volume:/var/lib/mysql
+      - drupal-db-volume:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=drupal_db
       - MYSQL_USER=dbuser
@@ -28,7 +28,7 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_RANDOM_ROOT_PASSWORD=true
 volumes:
-  devportal-public-files:
-  devportal-private-files:
-  devportal-backups:
-  devportal-db-volume:
+  drupal-public-files:
+  drupal-private-files:
+  drupal-backups:
+  drupal-db-volume:
